@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.views.static import serve
 
-from SimpleBlog.settings import MEDIA_ROOT
+from SimpleBlog.settings import MEDIA_ROOT,STATIC_ROOT
 
 
 urlpatterns = [
@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'', include('apps.comment.urls')),
     # 配置上传文件的访问url
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
-    # url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT}),
     # 配置富文本ueditor的URL路径
     url(r'^ueditor/', include('DjangoUeditor.urls')),
 ]
