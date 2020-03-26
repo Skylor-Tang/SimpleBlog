@@ -25,7 +25,7 @@ SECRET_KEY = '359*@gk^((uteyx6%1yh#m#bmpiufutqy*!0+n5u#3&bezmf7n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mydjangoblogapptmj.herokuapp.com']
 
 AUTH_USER_MODEL = "users.UserProfile"
 
