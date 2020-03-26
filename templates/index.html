@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+{% for post in all_posts.object_list %}
+    <article class="post post-{{ forloop.counter }}">
+        <header class="entry-header">
+            <h1 class="entry-title">
+                <a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a>
+            </h1>
+            <div class="entry-meta">
+                <span class="post-category"><a href="#">{{ post.category }}</a></span>
+                <span class="post-date"><a href="#"><time class="entry-date"
+                                                          datetime="{{ post.add_time }}">{{ post.add_time }}</time></a></span>
+                <span class="post-author"><a href="#">{{ post.owner }}</a></span>
+                <span class="comments-link"><a href="#">{{ post.comment_set.count }} 评论</a></span>
+                <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
+            </div>
+        </header>
+        <div class="entry-content clearfix">
+            <p>{{ post.desc }}</p>
+            <div class="read-more cl-effect-14">
+                <a href="{% url 'blog:post_detail' post.id %}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+            </div>
+        </div>
+    </article>
+{% endfor %}
+    <div class="pagination">
+        <ul class="pagelist">
+            {% if all_posts.has_previous %}
+                <li class="long"><a href="?{{ all_posts.previous_page_number.querystring }}">上一页</a></li>
+            {% endif %}
+
+            {% for page in all_posts.pages %}
+                {% if page %}
+                    {% ifequal page all_posts.number %}
+                        <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                    {% endifequal %}
+                {% else %}
+                    <li class="none">...</li>
+                {% endif %}
+            {% endfor %}
+            {% if all_posts.has_next %}
+                <li class="long"><a href="?{{ all_posts.next_page_number.querystring }}">下一页</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
